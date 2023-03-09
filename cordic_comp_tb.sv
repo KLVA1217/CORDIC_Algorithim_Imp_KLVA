@@ -1,33 +1,36 @@
-`define OUTPUT_STR_1 "from display: t= %d| cordic_out = %b"
+`define OUTPUT_STR_1 "from display: t= %d| z_out = %b | UUT.z_current = %b"
 
 `define PERIOD 10
 `define NUM_OF_CYCLES 1
 
+`define BIT_WIDTH_PARAM 8
+
 module testbench();
   
-  reg [7:0] z_initial_in;
-  reg       rst, clk;
+  reg [`BIT_WIDTH_PARAM-1:0] z_initial_in;
+  reg                        rst, clk;
   
-  wire [7:0] cordic_out;
+  wire [`BIT_WIDTH_PARAM-1:0] z_out;
   
-  cordic_comp UUT(z_initial_in,
-                 rst,
-                 clk, 
-                 cordic_out);
+  cordic_comp #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) UUT(z_initial_in,
+                                                  rst,
+                                                  clk, 
+                                                  z_out);
   
   // Display Process
   initial begin
     
     $monitor(`OUTPUT_STR_1,
              $time,
-             cordic_out);
+             z_out,
+             UUT.z_current);
     end
   
   
   // Stimulus Process
   initial begin 
     
-    //$dumpfile("dump.vcd"); $dumpvars;
+    $dumpfile("dump.vcd"); $dumpvars;
     
     // t = 0
     rst = 1;

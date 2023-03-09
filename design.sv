@@ -13,6 +13,8 @@
 
 `include "addorsub_2to1_mux.sv"
 
+`include "shifter.sv"
+
 `include "counter_mod.sv"
 
 `include "mux_input_controller.sv"

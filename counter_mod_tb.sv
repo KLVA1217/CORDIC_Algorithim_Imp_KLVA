@@ -6,7 +6,7 @@
 module testbench();
   
   reg        clk, rst;
-  wire [3:0] out;
+  wire [5:0] out;
   
   counter_mod UUT(clk,
                  rst,

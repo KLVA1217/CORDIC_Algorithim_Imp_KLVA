@@ -1,7 +1,9 @@
-module dff(input      [7:0] d,
-          input             rst,
-          input             clk,
-           output reg [7:0] q);
+module dff
+  #(parameter BIT_WIDTH = 64)
+  (input     [BIT_WIDTH-1:0] d,
+  input                      rst,
+  input                      clk,
+  output reg [BIT_WIDTH-1:0] q);
   
   always @ (posedge clk)
     if(rst)

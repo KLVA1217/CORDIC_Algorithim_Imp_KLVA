@@ -1,20 +1,20 @@
-`define OUTPUT_STR_1 "from display: t= %d, clk= %b|d_in=  %d, rst_in=  %b |q_output= %d"
+`define OUTPUT_STR_1 "from display: t= %d, clk= %b|d_in=  %d, rst_in=  %b | q_output= %b (%d)"
 
 `define PERIOD 10
-
 `define NUM_OF_CYCLES 5
+`define BIT_WIDTH_PARAM 64
 
 module dff_tb();
-  reg clk;
-  reg [7:0] d_in;
-  reg rst_in;
+  reg                         clk;
+  reg  [`BIT_WIDTH_PARAM-1:0] d_in;
+  reg                         rst_in;
   
-  wire [7:0] q_output;
+  wire [`BIT_WIDTH_PARAM-1:0] q_output;
   
-  dff dff0 (d_in,
-            rst_in,
-            clk,
-            q_output);
+  dff #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) dff0 (d_in,
+                                            rst_in,
+                                            clk,
+                                            q_output);
   
   // Clock Process
   initial begin
@@ -31,6 +31,7 @@ module dff_tb();
              clk,
              d_in,
              rst_in,
+             q_output,
              q_output);
     end
   

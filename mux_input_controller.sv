@@ -1,6 +1,7 @@
-module mux_input_controller(input      clk,
-                            input      rst,
-                            output reg q);
+module mux_input_controller
+  (input      clk,
+   input      rst,
+   output reg q);
 
   reg del = 0;
   

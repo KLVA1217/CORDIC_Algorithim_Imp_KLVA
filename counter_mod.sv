@@ -1,6 +1,7 @@
-module counter_mod(input            clk,
-                   input            rst,
-                   output reg [3:0] q);
+module counter_mod
+  (input            clk,
+   input            rst,
+   output reg [5:0] q);
 
   reg del = 0;
   

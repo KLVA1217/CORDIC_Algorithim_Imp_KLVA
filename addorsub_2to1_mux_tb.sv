@@ -1,18 +1,19 @@
-`define OUTPUT_STR_1 "from display: t= %d|d0_in=  %d or %b, d1_in=  %d or %b, sel_in=  %b|y_output= %d or %b"
+`define OUTPUT_STR_1 "from display: t= %d | d0_in=  %b (%d), d1_in=  %b (%d), sel_in=  %b | y_output= %b (%d)"
 
 `define PERIOD 10
+`define BIT_WIDTH_PARAM 8
 
 module mux_tb();
-  reg [7:0] d0_in;
-  reg [7:0] d1_in;
+  reg [`BIT_WIDTH_PARAM-1:0] d0_in;
+  reg [`BIT_WIDTH_PARAM-1:0] d1_in;
   reg sel_in;
   
-  wire signed [7:0] y_output;
+  wire signed [`BIT_WIDTH_PARAM-1:0] y_output;
   
-  addorsub_2to1_mux UUT (d0_in,
-                         d1_in,
-                         sel_in,
-                         y_output);
+  addorsub_2to1_mux #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) UUT (d0_in,
+                                                         d1_in,
+                                                         sel_in,
+                                                         y_output);
 
   // Display Process
   initial begin
