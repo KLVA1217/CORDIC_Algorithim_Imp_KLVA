@@ -1,4 +1,4 @@
-`define OUTPUT_STR_1 "from display: t= %d| z_out = %b | UUT.z_current = %b"
+`define OUTPUT_STR_1 "from display: t= %d| x_out = %b, y_out = %b, z_out = %b"
 
 `define PERIOD 10
 `define NUM_OF_CYCLES 1
@@ -7,14 +7,22 @@
 
 module testbench();
   
-  reg [`BIT_WIDTH_PARAM-1:0] z_initial_in;
+  reg [`BIT_WIDTH_PARAM-1:0] x_initial_in,
+                             y_initial_in,
+                             z_initial_in;
   reg                        rst, clk;
   
-  wire [`BIT_WIDTH_PARAM-1:0] z_out;
+  wire [`BIT_WIDTH_PARAM-1:0] x_out, 
+                              y_out, 
+                              z_out;
   
-  cordic_comp #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) UUT(z_initial_in,
+  cordic_comp #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) UUT(x_initial_in,
+                                                  y_initial_in,
+                                                  z_initial_in,
                                                   rst,
-                                                  clk, 
+                                                  clk,
+                                                  x_out,
+                                                  y_out,
                                                   z_out);
   
   // Display Process
@@ -22,8 +30,10 @@ module testbench();
     
     $monitor(`OUTPUT_STR_1,
              $time,
-             z_out,
-             UUT.z_current);
+             x_out,
+             y_out,
+             z_out);
+  
     end
   
   
@@ -34,13 +44,15 @@ module testbench();
     
     // t = 0
     rst = 1;
+    x_initial_in   = 8'b01001101;
+    y_initial_in   = 8'b00000000;
     z_initial_in   = 8'b01000011;
     
     // t = 10 | Rotation 1
     #(`PERIOD)
     rst = 0;
     
-    #(5 * `PERIOD)
+    #((`BIT_WIDTH_PARAM-1) * `PERIOD)
     $finish;
   end
   

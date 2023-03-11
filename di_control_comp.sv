@@ -3,5 +3,5 @@ module di_control_comp
   ( input  [BIT_WIDTH-1:0] z_input,
     output                 di_control_comp_output);
   
-  assign di_control_comp_output = ~(z_input[BIT_WIDTH-1]);
+  assign di_control_comp_output = (z_input[BIT_WIDTH-1]);
 endmodule
