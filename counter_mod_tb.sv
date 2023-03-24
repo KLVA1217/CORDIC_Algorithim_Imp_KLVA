@@ -1,15 +1,17 @@
-`define OUTPUT_STR_1 "from display: t= %d | del = %b | rst = %b | q = %b(%d) out = %b(%d) "  
+`define OUTPUT_STR_1 "from display: t= %d | del = %b | rst = %b, coordinate_system= %b | q = %b(%d) out = %b(%d) "  
 
 `define PERIOD 10
-`define NUM_OF_CYCLES 1
+`define NUM_OF_CYCLES 8
 
 module testbench();
   
   reg        clk, rst;
+  reg [1:0]  coordinate_system_in;
   wire [5:0] out;
   
   counter_mod UUT(clk,
                  rst,
+                 coordinate_system_in,
                  out);
   
   // Monitor Process
@@ -19,6 +21,7 @@ module testbench();
              $time,
              UUT.del,
              rst,
+             coordinate_system_in,
              UUT.q,
              UUT.q,
              out,
@@ -31,12 +34,13 @@ module testbench();
     $dumpfile("dump.vcd"); $dumpvars;
     
 	rst = 1;
+    coordinate_system_in = -1;
     
     // t = 10
     #(`PERIOD)
     rst = 0;
     
-    #(5 * `PERIOD)
+    #(`NUM_OF_CYCLES * `PERIOD)
     $finish;
   end
   

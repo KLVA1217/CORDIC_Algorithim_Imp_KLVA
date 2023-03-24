@@ -31,8 +31,8 @@ module mux_tb();
     // Stimulus Process
   initial begin
     
-    d0_in = 45;
-    d1_in = 30;
+    d0_in = 8'b00110010;
+    d1_in = 8'b01000000;
     sel_in = 0;
     
     #(`PERIOD)

@@ -6,8 +6,11 @@ module dff
   output reg [BIT_WIDTH-1:0] q);
   
   always @ (posedge clk)
-    if(rst)
+    if(rst) begin
       q <= 0 ;
-  	else
+    end
+  
+  	else begin
       q <= d;
+    end
 endmodule

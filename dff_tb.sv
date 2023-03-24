@@ -37,26 +37,23 @@ module dff_tb();
   
     // Stimulus Process
   initial begin
-    
+    // t = 0
     rst_in=1;
     d_in = 87;
     
     #(`PERIOD)
+    rst_in = 0;
     d_in = 87;
-    rst_in = 0;
     
     #(`PERIOD)
-    
+    rst_in = 0;
     d_in = 2;
-    rst_in = 0;
     
     #(`PERIOD)
-    
+    rst_in = 0;
     d_in = 68;
-    rst_in = 0;
     
     #(`PERIOD)
-
     $finish;
   end
 endmodule

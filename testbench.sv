@@ -13,4 +13,6 @@
 
 // `include "shifter_tb.sv"
 
- `include "cordic_comp_tb.sv"
+// `include "counter_mod_tb.sv"
+
+`include "cordic_comp_tb.sv"

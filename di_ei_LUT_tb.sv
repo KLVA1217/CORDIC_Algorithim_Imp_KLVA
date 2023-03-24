@@ -2,7 +2,7 @@
 
 `define PERIOD 10
 `define NUM_OF_CYCLES 8
-`define WHOLE_BIT_WIDTH 4
+`define WHOLE_BIT_WIDTH 2
 `define BIT_WIDTH_PARAM 6
 
 module testbench();
@@ -32,7 +32,7 @@ module testbench();
   initial begin
     
     count_in = 3'b000;
-    coordinate_system_in = 1;
+    coordinate_system_in = -1;
     #(`PERIOD) count_in = count_in + 1;
     #(`PERIOD) count_in = count_in + 1;
     #(`PERIOD) count_in = count_in + 1;
