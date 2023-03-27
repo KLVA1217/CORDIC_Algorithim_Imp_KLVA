@@ -3,6 +3,7 @@ module dff
   (input     [BIT_WIDTH-1:0] d,
   input                      rst,
   input                      clk,
+  input                      en,
   output reg [BIT_WIDTH-1:0] q);
   
   always @ (posedge clk)
@@ -11,6 +12,8 @@ module dff
     end
   
   	else begin
-      q <= d;
+      if (!en) begin
+      	q <= d;
+      end 
     end
 endmodule

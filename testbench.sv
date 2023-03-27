@@ -16,3 +16,5 @@
 // `include "counter_mod_tb.sv"
 
 `include "cordic_comp_tb.sv"
+
+// `include "cordic_controller_tb.sv"

@@ -5,13 +5,14 @@
 
 module testbench();
   
-  reg        clk, rst;
+  reg        clk, rst, en;
   reg [1:0]  coordinate_system_in;
   wire [5:0] out;
   
   counter_mod UUT(clk,
                  rst,
                  coordinate_system_in,
+                 en,
                  out);
   
   // Monitor Process
@@ -35,10 +36,13 @@ module testbench();
     
 	rst = 1;
     coordinate_system_in = -1;
+    en = 0;
     
     // t = 10
     #(`PERIOD)
     rst = 0;
+    
+    en = 1;
     
     #(`NUM_OF_CYCLES * `PERIOD)
     $finish;

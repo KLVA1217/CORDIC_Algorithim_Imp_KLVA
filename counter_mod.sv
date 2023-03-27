@@ -2,9 +2,10 @@ module counter_mod
   (input            clk,
    input            rst,
    input [1:0]      coordinate_system,
+   input            en,
    output reg [5:0] q);
 
-  reg del = 0;
+  reg del;
   
   always @ (posedge clk) begin
     
@@ -20,7 +21,7 @@ module counter_mod
     	del <= 0;
     end
     
-  	else begin
+    else if (!en) begin
       if (coordinate_system[1]) begin
       	if(q == 4-1 || q == 13-1 || q == 40-1) begin
         	del <= 0;

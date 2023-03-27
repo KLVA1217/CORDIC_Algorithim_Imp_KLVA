@@ -1,19 +1,21 @@
-`define OUTPUT_STR_1 "from display: t= %d, clk= %b|d_in=  %d, rst_in=  %b | q_output= %b (%d)"
+`define OUTPUT_STR_1 "from display: t= %d |d_in=  %d, rst_in=  %b, en= %b | q_output= %b (%d)"
 
 `define PERIOD 10
 `define NUM_OF_CYCLES 5
-`define BIT_WIDTH_PARAM 64
+`define BIT_WIDTH_PARAM 8
 
 module dff_tb();
-  reg                         clk;
-  reg  [`BIT_WIDTH_PARAM-1:0] d_in;
-  reg                         rst_in;
+  reg                         clk,
+                              rst_in,
+                              en;
   
-  wire [`BIT_WIDTH_PARAM-1:0] q_output;
+  reg  [`BIT_WIDTH_PARAM-1:0] d_in,
+                              q_output;
   
   dff #(.BIT_WIDTH(`BIT_WIDTH_PARAM)) dff0 (d_in,
                                             rst_in,
                                             clk,
+                                            rst_in,
                                             q_output);
   
   // Clock Process
@@ -28,9 +30,9 @@ module dff_tb();
   initial begin
     $monitor(`OUTPUT_STR_1,
              $time,
-             clk,
              d_in,
              rst_in,
+             dff0.en,
              q_output,
              q_output);
     end

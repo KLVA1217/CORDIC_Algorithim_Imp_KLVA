@@ -18,3 +18,5 @@
 `include "counter_mod.sv"
 
 `include "mux_input_controller.sv"
+
+`include "cordic_controller.sv"

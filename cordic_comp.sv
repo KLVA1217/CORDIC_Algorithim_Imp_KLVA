@@ -15,8 +15,7 @@ module cordic_comp
        output [BIT_WIDTH-1:0] x_output,
        output [BIT_WIDTH-1:0] y_output,
        output [BIT_WIDTH-1:0] z_output);
-  
-  wire di_mux_output;
+
   
   wire [BIT_WIDTH-1:0] x_initial,
                        y_initial,
@@ -46,7 +45,9 @@ module cordic_comp
   wire [5:0] lut_count;
   
   wire di_control_comp_wire,
-       mux_input;
+       mux_input,
+       di_mux_output,
+       en;
   
   assign x_initial = {x_initial_whole, x_initial_decimal};
   assign y_initial = {y_initial_whole, y_initial_decimal};
@@ -84,16 +85,19 @@ module cordic_comp
   dff #(.BIT_WIDTH(BIT_WIDTH)) x_register (mux_to_x_reg_wire,
                                            rst,
                                            clk,
+                                           en,
                                            x_current);
   
   dff #(.BIT_WIDTH(BIT_WIDTH)) y_register (mux_to_y_reg_wire,
                                            rst,
                                            clk,
+                                           en,
                                            y_current);
   
   dff #(.BIT_WIDTH(BIT_WIDTH)) z_register (mux_to_z_reg_wire,
                                            rst,
                                            clk,
+                                           en,
                                            z_current);
   
   shifter #(.BIT_WIDTH(BIT_WIDTH)) x_shifter(x_current,
@@ -122,6 +126,7 @@ module cordic_comp
   counter_mod counter(clk,
                       rst,
                       coordinate_system,
+                      en,
                       lut_count);
   
   di_ei_LUT #(.WHOLE_BIT_WIDTH(WHOLE_BIT_WIDTH),
@@ -135,6 +140,14 @@ module cordic_comp
                                                       z_current,
                                                       mode_bit,
                                                       di_control_comp_wire);
+  
+  cordic_controller #(.BIT_WIDTH(BIT_WIDTH)) cordic_controller_instance (y_current,
+                                                                         z_current,
+                                                                         lut_count,
+                                                                         mode_bit,
+                                                                         coordinate_system,
+                                                                         rst,
+                                                                         en);
   
   assign x_output = x_current;
   assign y_output = y_current;
